@@ -121,13 +121,41 @@ body {
 .courses-bigcontainer {
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
 }
 
 .courses-container {
   display: flex;
   /* margin: auto; */
   overflow-x: scroll;
+  scroll-behavior: smooth;
 
+}
+
+.scroll-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 10;
+  background-color: #ddd;
+  /* Or any color that matches your design */
+  padding: 10px 15px;
+  border-radius: 50%;
+}
+
+.left-arrow {
+  left: -55px;
+}
+
+.right-arrow {
+  right: -55px;
+}
+
+/* Optional: Style for Font Awesome icons */
+.scroll-arrow i {
+  font-size: 24px;
+  color: #333;
 }
 
 .courses-container .course {

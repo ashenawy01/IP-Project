@@ -7,6 +7,7 @@ $(document).ready(function () {
       image: "assets/images/web-development.jpg",
       price: "$99",
       id: "web-development",
+      data: "2020-01-01",
     },
     {
       title: "Data Science",
@@ -14,6 +15,7 @@ $(document).ready(function () {
       image: "assets/images/data-science.jpg",
       price: "$120",
       id: "data-science",
+      data: "2020-01-01",
     },
     {
       title: "Digital Marketing",
@@ -21,6 +23,7 @@ $(document).ready(function () {
       image: "assets/images/digital-marketing.jpg",
       price: "$80",
       id: "digital-marketing1",
+      data: "2020-01-01",
     },
     {
       title: "Digital Marketing",
@@ -28,6 +31,7 @@ $(document).ready(function () {
       image: "assets/images/digital-marketing.jpg",
       price: "$80",
       id: "digital-marketing2",
+      data: "2020-01-01",
     },
     {
       title: "Digital Marketing",
@@ -35,6 +39,7 @@ $(document).ready(function () {
       image: "assets/images/digital-marketing.jpg",
       price: "$800",
       id: "digital-marketing3",
+      data: "2020-01-01",
     },
     {
       title: "Digital Marketing",
@@ -42,6 +47,7 @@ $(document).ready(function () {
       image: "assets/images/digital-marketing.jpg",
       price: "$810",
       id: "digital-marketing4",
+      data: "2020-01-01",
     },
     {
       title: "Digital Marketing",
@@ -49,6 +55,7 @@ $(document).ready(function () {
       image: "assets/images/digital-marketing.jpg",
       price: "$820",
       id: "digital-marketing5",
+      data: "2020-01-01",
     },
   ];
   var defaultImage = "assets/images/default-avatar.jpeg";
@@ -69,13 +76,40 @@ $(document).ready(function () {
         "<p>" +
         course.description +
         "</p>" +
+        "<p>" +
+        course.data +
+        "</p>" +
         '<p class="course-price">' +
         course.price +
         "</p>" +
         '<a href="buy-course.html?course=' +
         course.id +
-        '" class="btn buy-btn">Buy Coures Now</a>' +
+        '" class="btn buy-btn">Book Coures Now</a>' +
         "</div>"
+    );
+  });
+});
+
+$(document).ready(function () {
+  // Your existing code to load courses...
+
+  var scrollAmount = 300; // Adjust based on your layout
+
+  $(".right-arrow").click(function () {
+    $(".courses-container").animate(
+      {
+        scrollLeft: "+=" + scrollAmount,
+      },
+      "slow"
+    );
+  });
+
+  $(".left-arrow").click(function () {
+    $(".courses-container").animate(
+      {
+        scrollLeft: "-=" + scrollAmount,
+      },
+      "slow"
     );
   });
 });

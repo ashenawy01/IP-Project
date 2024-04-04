@@ -92,11 +92,19 @@ document.addEventListener("DOMContentLoaded", function () {
       el.textContent = ""; // Clear any existing errors
     });
     document.getElementById("terms-error").textContent = "";
+    passwordError.textContent = "";
+    profileImageError.textContent = "";
     var termsChecked = document.getElementById("terms").checked;
     var username = document.getElementById("username").value;
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
+    var passwordError = document.getElementById("password-error");
     var confirmPassword = document.getElementById("confirm-password").value;
+    var profileImage = document.getElementById("profile-image").files;
+    var profileImageError = document.getElementById("profile-image-error");
+
+    var passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     // Username validation
     if (username.length < 5) {
@@ -127,8 +135,29 @@ document.addEventListener("DOMContentLoaded", function () {
         "You must accept the terms and conditions to sign up.";
       event.preventDefault(); // Prevent form submission
     }
+    if (!passwordPattern.test(password)) {
+      passwordError.textContent =
+        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.";
+      event.preventDefault(); // Prevent form submission
+    }
+    if (profileImage.length === 0) {
+      profileImageError.textContent = "Please upload a profile image.";
+      event.preventDefault(); // Prevent form submission
+    }
     // If no errors, form will submit normally
   });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  var profileImageInput = document.getElementById("profile-image");
+
+  profileImageInput.addEventListener("change", function () {
+    var fileName =
+      profileImageInput.files.length > 0 ? profileImageInput.files[0].name : "";
+    document.getElementById("file-name").textContent = fileName;
+  });
+
+  // Your existing form submission and validation script...
 });
 
 document.addEventListener("DOMContentLoaded", function () {

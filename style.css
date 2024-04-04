@@ -345,6 +345,27 @@ footer {
 
 }
 
+.form-group label[for="profile-image"] {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+/* Hide the actual file input */
+#profile-image {
+  display: none;
+}
+
+/* Style for displaying the file name (optional) */
+#file-name {
+  margin-top: 10px;
+  display: block;
+}
+
 /* About Section */
 
 .aboutus-container {

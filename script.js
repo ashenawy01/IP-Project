@@ -163,6 +163,22 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+$(document).ready(function () {
+  // Dummy data - replace with actual data fetch from your backend
+  var data = {
+    courses: 120,
+    reservations: 320,
+    students: 1500,
+    income: "$50,000",
+  };
+
+  // Update card values
+  $("#total-courses").text(data.courses);
+  $("#total-reservations").text(data.reservations);
+  $("#total-students").text(data.students);
+  $("#total-income").text(data.income);
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   // Example data
   var popularCoursesData = {

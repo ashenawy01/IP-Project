@@ -138,11 +138,19 @@ body {
   transform: translateY(-50%);
   cursor: pointer;
   z-index: 10;
-  background-color: #ddd;
+  background-color: #ccc;
   /* Or any color that matches your design */
   padding: 10px 15px;
   border-radius: 50%;
+  transition: all 0.3s ease;
 }
+
+.scroll-arrow:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+
 
 .left-arrow {
   left: -55px;

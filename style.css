@@ -424,3 +424,118 @@ button[type="submit"]:hover {
   text-align: center;
 
 }
+
+.dashboard {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  min-width: 250px;
+  background-color: #343a40;
+  color: #fff;
+  height: 100%;
+}
+
+.sidebar-logo {
+  padding: 10px;
+  text-align: center;
+}
+
+.sidebar-logo img {
+  max-width: 100%;
+  height: auto;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li a {
+  display: block;
+  padding: 10px;
+  color: #ccc;
+  text-decoration: none;
+  border-bottom: 1px solid #444;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a:focus,
+.sidebar ul li.itemActive {
+  background-color: #007bff;
+  color: #fff !important;
+}
+
+.sidebar ul li.itemActive a {
+  color: #fff;
+}
+
+.sidebar-logout {
+  padding: 10px;
+  border-top: 1px solid #444;
+  /* Adds a separator between the logout button and the rest of the sidebar */
+}
+
+.sidebar-logout a {
+  color: #ccc;
+  text-decoration: none;
+  display: block;
+  /* text-align: center; */
+}
+
+.sidebar-logout a:hover {
+  color: #fff;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #f8f9fa;
+  overflow: scroll;
+}
+
+/* Responsive sidebar */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+  }
+
+  .main-content {
+    padding-top: 10px;
+  }
+}
+
+.charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  /* max-width: 1200px; */
+  margin: 0 auto;
+}
+
+.chart-container {
+  margin: 20px auto;
+}
+
+.chart-container-pi {
+  flex: 50%;
+}
+
+.chart-container-line {
+  flex: 100%;
+}
+
+canvas.piChart {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+canvas.lineChart {
+  width: 100%;
+  max-width: 1200px;
+  height: 400px;
+  margin: 0 auto;
+}

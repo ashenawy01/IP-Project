@@ -162,3 +162,58 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Validation passed. Form can be submitted now.");
   });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Example data
+  var popularCoursesData = {
+    labels: ["Web Development", "Data Science", "Digital Marketing"],
+    datasets: [
+      {
+        label: "Enrollments",
+        data: [120, 150, 90],
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+        hoverOffset: 4,
+      },
+    ],
+  };
+
+  var incomeCoursesData = {
+    labels: ["Web Development", "Data Science", "Digital Marketing"],
+    datasets: [
+      {
+        label: "Income",
+        data: [3000, 4500, 2000],
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+        hoverOffset: 4,
+      },
+    ],
+  };
+
+  var incomeLineChartData = {
+    labels: ["January", "February", "March", "April", "May"],
+    datasets: [
+      {
+        label: "Monthly Income",
+        data: [3000, 4000, 2800, 5000, 4500],
+        fill: false,
+        borderColor: "rgb(75, 192, 192)",
+        tension: 0.1,
+      },
+    ],
+  };
+
+  new Chart(document.getElementById("popularCoursesPieChart"), {
+    type: "pie",
+    data: popularCoursesData,
+  });
+
+  new Chart(document.getElementById("incomeCoursesPieChart"), {
+    type: "pie",
+    data: incomeCoursesData,
+  });
+
+  new Chart(document.getElementById("incomeLineChart"), {
+    type: "line",
+    data: incomeLineChartData,
+  });
+});

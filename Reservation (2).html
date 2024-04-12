@@ -1,0 +1,106 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manage Reservations</title>
+<style>
+    body, h1, a {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+    }
+
+    .sidebar {
+        background-color: #34495e;
+        color: white;
+        width: 250px;
+        height: 100vh;
+        padding-top: 20px;
+    }
+
+    .sidebar a {
+        color: white;
+        text-decoration: none;
+        padding: 15px 20px;
+        display: block;
+        transition: background 0.3s, padding-left 0.3s;
+    }
+
+    .sidebar a:not(.logo):hover {
+        background-color: #4e6a85;
+        padding-left: 30px;
+    }
+
+    .sidebar a.active {
+        background-color: #3498db;
+        padding-left: 30px;
+    }
+
+    .logo {
+        display: block;
+        padding: 10px 20px;
+        text-align: center;
+        margin-bottom: 10px;
+        background: #2c3e50;
+    }
+
+    .logo img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .main-content {
+        padding: 20px;
+        flex-grow: 1;
+    }
+
+    .main-content h1 {
+        color: #333;
+        font-size: 24px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+    }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+    <!-- Add your logo here -->
+    <a href="#" class="logo"><img src="your-logo-path.png" alt="Logo"></a>
+    <a href="#" class="sidebar-link active">Reservations</a>
+    <a href="#" class="sidebar-link">Users</a>
+    <a href="#" class="sidebar-link">Managers</a>
+    <a href="#" class="sidebar-link">Transactions</a>
+    <a href="#" class="sidebar-link">Logout</a>
+</div>
+
+<div class="main-content">
+    <h1>Manage Reservations</h1>
+    <!-- Content goes here -->
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var sidebarLinks = document.querySelectorAll('.sidebar a.sidebar-link');
+
+        sidebarLinks.forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                sidebarLinks.forEach(function (link) {
+                    link.classList.remove('active');
+                });
+
+                this.classList.add('active');
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

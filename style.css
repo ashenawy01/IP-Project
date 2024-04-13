@@ -592,7 +592,7 @@ button[type="submit"]:hover {
 }
 
 .icon {
-  color: #007bff;
+  color: #d0ff00;
   font-size: 2rem;
   /* Adjust icon size */
   margin-bottom: 10px;
@@ -643,3 +643,5 @@ canvas.lineChart {
   margin: 0 auto;
 }
 /*cardscss*/
+/********/
+

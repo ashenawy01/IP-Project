@@ -194,37 +194,37 @@ document.addEventListener("DOMContentLoaded", function () {
   // Your existing form submission and validation script...
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  var loginForm = document.getElementById("login-form");
+// document.addEventListener("DOMContentLoaded", function () {
+//   var loginForm = document.getElementById("login-form");
 
-  loginForm.addEventListener("submit", function (event) {
-    // Prevent form submission for demonstration
-    event.preventDefault();
+//   loginForm.addEventListener("submit", function (event) {
+//     // Prevent form submission for demonstration
+//     event.preventDefault();
 
-    var usernameEmail = document.getElementById("username-email").value;
-    var password = document.getElementById("password-login").value;
+//     var usernameEmail = document.getElementById("username-email").value;
+//     var password = document.getElementById("password-login").value;
 
-    // Clear previous errors
-    document.getElementById("username-email-error").textContent = "";
-    document.getElementById("password-login-error").textContent = "";
+//     // Clear previous errors
+//     document.getElementById("username-email-error").textContent = "";
+//     document.getElementById("password-login-error").textContent = "";
 
-    // Simple validation logic
-    if (usernameEmail.length === 0) {
-      document.getElementById("username-email-error").textContent =
-        "Please enter your username or email.";
-      return false; // Stop submission
-    }
+//     // Simple validation logic
+//     if (usernameEmail.length === 0) {
+//       document.getElementById("username-email-error").textContent =
+//         "Please enter your username or email.";
+//       return false; // Stop submission
+//     }
 
-    if (password.length < 6) {
-      document.getElementById("password-login-error").textContent =
-        "Password must be at least 6 characters long.";
-      return false; // Stop submission
-    }
+//     if (password.length < 6) {
+//       document.getElementById("password-login-error").textContent =
+//         "Password must be at least 6 characters long.";
+//       return false; // Stop submission
+//     }
 
-    // If validation passes, proceed with form submission (here you would typically submit the form)
-    console.log("Validation passed. Form can be submitted now.");
-  });
-});
+//     // If validation passes, proceed with form submission (here you would typically submit the form)
+//     console.log("Validation passed. Form can be submitted now.");
+//   });
+// });
 
 $(document).ready(function () {
   // Dummy data - replace with actual data fetch from your backend
@@ -294,5 +294,122 @@ document.addEventListener("DOMContentLoaded", function () {
   new Chart(document.getElementById("incomeLineChart"), {
     type: "line",
     data: incomeLineChartData,
+  });
+});
+document.getElementById('enrollButton').addEventListener('click', function() {
+  document.getElementById('enrollmentModal').style.display = 'block';
+});
+
+document.querySelector('.close').addEventListener('click', function() {
+  document.getElementById('enrollmentModal').style.display = 'none';
+});
+
+window.addEventListener('click', function(event) {
+  const modal = document.getElementById('enrollmentModal');
+  if (event.target === modal) {
+    modal.style.display = 'none';
+  }
+});
+
+function saveEnrollment() {
+ 
+  
+  alert('Information saved! (placeholder)');
+  document.getElementById('enrollmentModal').style.display = 'none';
+}
+document.querySelectorAll('.star').forEach(star => {
+  star.addEventListener('click', (e) => {
+    removeRating(); 
+    e.target.classList.add('rated'); 
+    let previousSibling = e.target.previousElementSibling;
+    while (previousSibling) {
+      
+      previousSibling.classList.add('rated');
+      previousSibling = previousSibling.previousElementSibling;
+    }
+  });
+});
+
+function removeRating() {
+  document.querySelectorAll('.star').forEach(star => {
+    star.classList.remove('rated');
+  });
+}
+$(document).ready(function() {
+  
+  $('.star').on('click', function() {
+    var rating = $(this).data('value');
+    updateRating(rating);
+  });
+
+  
+  loadRatings();
+
+ 
+});
+
+function updateRating(rating) {
+ 
+  var ratings = JSON.parse(localStorage.getItem('ratings')) || [];
+  ratings.push(rating);
+  localStorage.setItem('ratings', JSON.stringify(ratings));
+  
+  
+  calculateAndDisplayRating(ratings);
+}
+
+function calculateAndDisplayRating(ratings) {
+  var total = ratings.reduce(function(acc, cur) { return acc + cur; }, 0);
+  var averageRating = (total / ratings.length).toFixed(1);
+  var ratingCount = ratings.length;
+  
+  $('#averageRating').text(averageRating);
+  $('#ratingCount').text(ratingCount);
+}
+
+function loadRatings() {
+  var ratings = JSON.parse(localStorage.getItem('ratings')) || [];
+  if (ratings.length > 0) {
+    calculateAndDisplayRating(ratings);
+  }
+}
+
+function saveEnrollment() {
+ 
+}
+$(document).ready(function() {
+
+  $('#enrollButton').click(function() {
+    $('#enrollmentModal').show();
+  });
+
+  $('.close').click(function() {
+    $('#enrollmentModal').hide();
+  });
+
+  
+  $('#enrollmentForm').on('submit', function(e) {
+    
+    e.preventDefault();
+
+    
+    var name = $('#name').val().trim();
+    var phone = $('#phone').val().trim();
+
+    
+    if(name === "") {
+      alert('Please enter your name.');
+      return; 
+    }
+    
+    if(phone === "") {
+      alert('Please enter your phone number.');
+      return;
+    }
+
+
+    console.log('Data saved:', { name: name, phone: phone });
+    alert('Information saved successfully!');
+    $('#enrollmentModal').hide();
   });
 });

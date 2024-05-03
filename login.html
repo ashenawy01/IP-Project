@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="Images/png" href="assets/images/logo.png">
 
 </head>
 
@@ -26,12 +27,12 @@
 
   <div class="content">
     <div class="form-container">
-      <form id="login-form" action="/submit-login" method="POST">
+      <form id="login-form" action="http://localhost/reservationapp/backend/login.php" method="POST">
         <h2>Login</h2>
 
         <div class="form-group">
           <label for="username-email">Username/Email</label>
-          <input type="text" id="username-email" name="username-email" required>
+          <input type="text" id="username-email" name="username" required>
           <span class="error-message" id="username-email-error"></span>
         </div>
 
@@ -46,10 +47,11 @@
           <label for="remember-me">Remember me</label>
         </div>
 
-        <button type="submit">Login</button>
 
         <p class="forgot-password"><a href="reset-password.html">Forgot Password?</a></p>
         <p class="forgot-password"><a href="signup.html">Don't have an account? Sign Up here</a></p>
+
+        <button type="submit">Login</button>
       </form>
     </div>
   </div>

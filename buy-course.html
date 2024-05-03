@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COURSATY Course Enrollment</title>
+    <link rel="stylesheet" href="style.css">  
+</head>
+
+<body>
+    <nav class="navbar">
+        <ul>
+          <div class="sidebar-logo">
+            <img src="assets/images/logo.png" alt="Logo">
+          </div>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li class="activeTab"><a href="login.html">Login</a></li>
+          <li><a href="signup.html">Sign Up</a></li>
+        </ul>
+      </nav>
+    
+
+  <main>
+    <div class="course-card">
+      <div class="course-media">
+        <img src="assets/images/webdevelopment.jpg" alt="Web Development Course">
+        <div class="course-rating">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+
+
+        </div>
+       
+<div class="course-rating">
+   
+    <div class="rating-stats">
+      <span id="averageRating">0</span> average based on <span id="ratingCount">0</span> reviews
+    </div>
+  </div>
+  
+
+  
+        <div class="course-enroll">
+          <span class="course-start-date">course starts on 12/1/2024</span>
+          <button id="enrollButton">Enroll</button>
+          <button type="submit" id="saveButton">Save</button>
+
+          <span class="course-price">course price 99$</span>
+        </div>
+      </div>
+<div class="course-content">
+        <section class="about-course">
+            <h1>About this course</h1>
+
+            This Web Development course is designed to equip learners with the essential skills and knowledge needed to build and 
+            maintain dynamic, full-featured websites. It is ideal for both beginners and those with some programming experience who 
+            wish to delvelop into both the front-end and back-end development aspects. 
+            Through hands-on projects and expert instruction, students will emerge from the course ready to contribute to 
+            real-world web projects.
+      
+        </section>
+        <section class="what-you-learn">
+            <h1>What you'll learn</h1>
+            •	Front-End Development: Understand the core principles of web design using HTML, CSS, and JavaScript. 
+            •	Back-End Development: Gain proficiency in server-side programming with Node.js and Express.
+            •	Full-Stack Integration: Integrate front-end and back-end technologies to develop complete web applications, focusing on both client-side and server-side interactions.
+            •	Additional Skills: Master essential tools and practices suc
+
+        </section>
+      </div>
+    </div>
+  </main>
+
+ 
+  
+  <div id="enrollmentModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form id="enrollmentForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required><br>
+        <button type="button" onclick="saveEnrollment()">Save</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2024 Course Reservation System. All rights reserved.</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+

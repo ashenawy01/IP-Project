@@ -1,4 +1,11 @@
 <?php
+
+
+// Set the appropriate CORS headers
+header("Access-Control-Allow-Origin: *"); // Allow requests from any origin
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE"); // Allow the specified methods
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept"); // Allow the specified headers
+
 // Include the User class and database connection file
 require_once "User.php";
 require_once "db_connection.php";

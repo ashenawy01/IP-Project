@@ -1,94 +1,40 @@
 $(document).ready(function () {
-  // Example data - replace with actual data fetch
-  var courses = [
-    {
-      title: "Web Development",
-      description: "Learn to build websites.",
-      image: "assets/images/web-development.jpg",
-      price: "$99",
-      id: "web-development",
-      data: "2020-01-01",
+  // AJAX request to fetch course data from the controller
+  $.ajax({
+    url: "http://localhost/reservationapp/backend/course-controller.php?action=getAll",
+    method: "GET",
+    dataType: "json",
+    success: function (response) {
+      // Check if data is received successfully
+      if (response && response.length > 0) {
+        // Loop through each course and append it to the courses container
+        response.forEach(function (course) {
+          var courseImage = course.image || "assets/images/default-avatar.jpeg";
+          $(".courses-container").append(
+            '<div class="course">' +
+              '<img src="' + courseImage + '" alt="' + course.title + '">' +
+              '<h3>' + course.title + '</h3>' +
+              '<p>' + course.description + '</p>' +
+              '<p>' + course.data + '</p>' +
+              '<p class="course-price">' + course.price + '</p>' +
+              '<a href="buy-course.html?course=' + course.id + '" class="btn buy-btn">Book Course Now</a>' +
+              '</div>'
+          );
+        });
+      } else {
+        // Display a message if no courses are found
+        $(".courses-container").html("<p>No courses found.</p>");
+      }
     },
-    {
-      title: "Data Science",
-      description: "Analyze data effectively.",
-      image: "assets/images/data-science.jpg",
-      price: "$120",
-      id: "data-science",
-      data: "2020-01-01",
-    },
-    {
-      title: "Digital Marketing",
-      description: "Market products online.",
-      image: "assets/images/digital-marketing.jpg",
-      price: "$80",
-      id: "digital-marketing1",
-      data: "2020-01-01",
-    },
-    {
-      title: "Digital Marketing",
-      description: "Market products online.",
-      image: "assets/images/digital-marketing.jpg",
-      price: "$80",
-      id: "digital-marketing2",
-      data: "2020-01-01",
-    },
-    {
-      title: "Digital Marketing",
-      description: "Market products online.",
-      image: "assets/images/digital-marketing.jpg",
-      price: "$800",
-      id: "digital-marketing3",
-      data: "2020-01-01",
-    },
-    {
-      title: "Digital Marketing",
-      description: "Market products online.",
-      image: "assets/images/digital-marketing.jpg",
-      price: "$810",
-      id: "digital-marketing4",
-      data: "2020-01-01",
-    },
-    {
-      title: "Digital Marketing",
-      description: "Market products online.",
-      image: "assets/images/digital-marketing.jpg",
-      price: "$820",
-      id: "digital-marketing5",
-      data: "2020-01-01",
-    },
-  ];
-  var defaultImage = "assets/images/default-avatar.jpeg";
-  courses.forEach(function (course) {
-    var courseImage = course.image || defaultImage;
-    $(".courses-container").append(
-      '<div class="course">' +
-        '<img src="' +
-        courseImage +
-        '" alt="' +
-        course.title +
-        '" onerror="this.onerror=null;this.src=\'' +
-        defaultImage +
-        "';\">" +
-        "<h3>" +
-        course.title +
-        "</h3>" +
-        "<p>" +
-        course.description +
-        "</p>" +
-        "<p>" +
-        course.data +
-        "</p>" +
-        '<p class="course-price">' +
-        course.price +
-        "</p>" +
-        '<a href="buy-course.html?course=' +
-        course.id +
-        '" class="btn buy-btn">Book Coures Now</a>' +
-        "</div>"
-    );
+    error: function (xhr, status, error) {
+      // Display error message if request fails
+      console.error("Error fetching course data:", error);
+      $(".courses-container").html("<p>Error fetching course data.</p>");
+    }
   });
 });
+
+
 
 $(document).ready(function () {
   // Your existing code to load courses...
@@ -113,6 +59,52 @@ $(document).ready(function () {
     );
   });
 });
+
+$(document).ready(function() {
+  var courses = [
+      { title: "Web Development", description: "Learn to build websites.", price: "$99", courseImage: "assets/images/webdevelopment.jpg",data: "Data Science", id: 1 },
+      { title: "Data Science", description: "Analyze data effectively.", price: "$120",courseImage: "assets/images/datascience.jpg",data: "Web Development", id: 2 },
+      { title: "Digital Marketing", description: "Market products online.", price: "$80",courseImage: "assets/images/digitalmarketing.jpg",data: "Data Science", id: 3 },
+      // More courses
+  ];
+
+  function renderCourses() {
+      $('.course-cards').empty(); // Clear existing cards
+      courses.forEach(function (course) {
+        var courseImage = course.image || "assets/images/default-avatar.jpeg";
+        $(".courses-container").append(
+          '<div class="course">' +
+            '<img src="' + courseImage + '" alt="' + course.title + '">' +
+            '<h3>' + course.title + '</h3>' +
+            '<p>' + course.description + '</p>' +
+            '<p>' + course.data + '</p>' +
+            '<p class="course-price">' + course.price + '</p>' +
+            '<a href="buy-course.html?course=' + course.id + '" class="btn buy-btn">Book Course Now</a>' +
+            '</div>'
+        );
+      });
+  }
+
+  $('#course-search').on('input', function() {
+      var searchText = $(this).val().toLowerCase();
+      var filteredCourses = courses.filter(function(course) {
+          return course.title.toLowerCase().includes(searchText) ||
+                 course.description.toLowerCase().includes(searchText);
+      });
+      $('.course-cards').empty(); // Clear existing cards
+      filteredCourses.forEach(function(course) {
+          var cardHtml = '<div class="course-card">' +
+              '<h3>' + course.title + '</h3>' +
+              '<p>' + course.description + '</p>' +
+              '<p class="course-price">' + course.price + '</p>' +
+          '</div>';
+          $('.course-cards').append(cardHtml);
+      });
+  });
+
+  renderCourses(); // Initial render
+});
+
 
 document.addEventListener("DOMContentLoaded", function () {
   var signupForm = document.getElementById("signup-form");
@@ -194,37 +186,92 @@ document.addEventListener("DOMContentLoaded", function () {
   // Your existing form submission and validation script...
 });
 
-// document.addEventListener("DOMContentLoaded", function () {
-//   var loginForm = document.getElementById("login-form");
+document.addEventListener("DOMContentLoaded", function () {
+  var loginForm = document.getElementById("login-form");
 
-//   loginForm.addEventListener("submit", function (event) {
-//     // Prevent form submission for demonstration
-//     event.preventDefault();
+  loginForm.addEventListener("submit", function (event) {
+    // Prevent form submission for demonstration
+    event.preventDefault();
 
-//     var usernameEmail = document.getElementById("username-email").value;
-//     var password = document.getElementById("password-login").value;
+    var usernameEmail = document.getElementById("username-email").value;
+    var password = document.getElementById("password-login").value;
 
-//     // Clear previous errors
-//     document.getElementById("username-email-error").textContent = "";
-//     document.getElementById("password-login-error").textContent = "";
+    // Clear previous errors
+    document.getElementById("username-email-error").textContent = "";
+    document.getElementById("password-login-error").textContent = "";
 
-//     // Simple validation logic
-//     if (usernameEmail.length === 0) {
-//       document.getElementById("username-email-error").textContent =
-//         "Please enter your username or email.";
-//       return false; // Stop submission
-//     }
+    // Simple validation logic
+    if (usernameEmail.length === 0) {
+      document.getElementById("username-email-error").textContent =
+        "Please enter your username or email.";
+      return false; // Stop submission
+    }
 
-//     if (password.length < 6) {
-//       document.getElementById("password-login-error").textContent =
-//         "Password must be at least 6 characters long.";
-//       return false; // Stop submission
-//     }
+    if (password.length < 6) {
+      document.getElementById("password-login-error").textContent =
+        "Password must be at least 6 characters long.";
+      return false; // Stop submission
+    }
 
-//     // If validation passes, proceed with form submission (here you would typically submit the form)
-//     console.log("Validation passed. Form can be submitted now.");
-//   });
-// });
+    // If validation passes, proceed with form submission (here you would typically submit the form)
+    console.log("Validation passed. Form can be submitted now.");
+    
+    // Prepare data for sending
+    var formData = {
+      username: usernameEmail,
+      password: password
+    };
+    
+    console.log(formData);
+    // AJAX request to backend
+    fetch('http://localhost/reservationapp/backend/login.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded', 
+      },
+    body: formData
+  })
+  .then(response => 
+    // response.text()
+    console.log(response)
+  )
+.then(data => {
+  console.log(data);
+    if (data === "Login successful!") {
+          window.location.href = 'dashboard.html'; // Redirect to dashboard if login is successful
+      } else {
+            document.getElementById("password-login-error").textContent = data; // Display error from server
+        }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      document.getElementById("password-login-error").textContent = "An error occurred. Please try again later.";
+    });
+});
+});
+
+$(document).ready(function() {
+  $('#loginForm').submit(function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      var formData = $(this).serialize(); // Serialize form data
+
+      $.ajax({
+          type: 'POST',
+          url: $(this).attr('action'),
+          data: formData,
+          success: function(response) {
+              $('#loginResult').html(response); // Display the backend response
+          },
+          error: function() {
+              $('#loginResult').html('Error processing your request');
+          }
+      });
+  });
+});
+
+
+
 
 $(document).ready(function () {
   // Dummy data - replace with actual data fetch from your backend
@@ -413,3 +460,34 @@ $(document).ready(function() {
     $('#enrollmentModal').hide();
   });
 });
+
+
+// Modal popup functionality
+
+
+
+// // AJAX request to handle form submission
+// var addCourseForm = document.getElementById("addCourseForm");
+
+// addCourseForm.addEventListener("submit", function(event) {
+//   event.preventDefault(); // Prevent form submission
+//   var formData = new FormData(addCourseForm); // Get form data
+//   console.log(formData);
+//   var xhr = new XMLHttpRequest();
+//   xhr.open("POST", "http://localhost/reservationapp/backend/course-controller.php?action=create", true);
+//   xhr.onreadystatechange = function() {
+//     if (xhr.readyState === XMLHttpRequest.DONE) {
+//       if (xhr.status === 200) {
+//         // Course added successfully
+//         console.log("Course added successfully");
+//         modal.style.display = "none"; // Close the modal
+//         // You may update the course list here or perform any other actions
+//       } else {
+//         // Error occurred while adding course
+//         console.error("Error adding course:", xhr.responseText);
+//         // You may display an error message to the user
+//       }
+//     }
+//   };
+//   xhr.send(formData); // Send form data
+// });

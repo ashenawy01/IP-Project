@@ -27,12 +27,92 @@
       </div>
     </aside>
     <main class="main-content">
-      <h1>Manage Users</h1>
-      <!-- Dynamic content will be loaded here based on sidebar navigation -->
-    </main>
+      <h1>Manage Courses</h1>
+      <div class="course-controls">
+        <input type="text" id="course-search" placeholder="Search Courses...">
+        <button id="addCourseBtn">Add Course</button>
+      </div>
+      <div id="CourseModal" class="modal2">
+        <div class="modal2-content">
+          <span class="close">&times;</span>
+          <h2>Add New Course</h2>
+          <form id="addCourseForm">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea id="description" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="teacher_id">Teacher ID</label>
+              <input type="text" id="teacher_id" name="teacher_id" required>
+            </div>
+            <button type="submit">Save</button>
+          </form>
+        </div>
+      </div>
+      <div class="courses-bigcontainer">
+
+        <div class="courses-bigcontainer">
+          <div class="scroll-arrow left-arrow"><i class="fas fa-chevron-left"></i></div>
+          <div class="courses-container">
+            <!-- Dynamic courses will be loaded here using JavaScript -->
+          </div>
+          <div class="scroll-arrow right-arrow"><i class="fas fa-chevron-right"></i></div>
+        </div>
+
+ 
+
+
+    <!-- Add Course Modal -->
+
   </div>
+</main>
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="script.js"></script>
+  <script>
+    $(document).ready(function() {
+    $('#addCourseForm').submit(function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        var formData = $(this).serialize(); // Serialize the form data
+
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost/reservationapp/backend/course-controller.php?action=create',
+            data: formData,
+            success: function(response) {
+                alert('Course successfully added'); // Notify the user of success
+                $('#CourseModal').hide(); // Hide the modal
+                // Optionally, you can refresh the list of courses or clear the form
+                $('#addCourseForm')[0].reset(); // Reset the form fields
+            },
+            error: function() {
+                alert('Error adding course'); // Notify the user of an error
+            }
+        });
+    });
+
+    // Existing modal script
+    $('#addCourseBtn').click(function() {
+        $('#CourseModal').show(); // Show the modal
+    });
+
+    $('.close').click(function() {
+        $('#CourseModal').hide(); // Hide the modal
+    });
+
+    $(window).click(function(event) {
+        if ($(event.target).is('#CourseModal')) {
+            $('#CourseModal').hide();
+        }
+    });
+});
+
+    </script>
 </body>
 
 </html>

@@ -74,6 +74,43 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="script.js"></script>
   <script>
+    function fetchCourses() {
+    // AJAX request to fetch course data from the controller
+    $.ajax({
+      url: "http://localhost/reservationapp/backend/course-controller.php?action=getAll",
+      method: "GET",
+      dataType: "json",
+      success: function (response) {
+        // Check if data is received successfully
+        if (response && response.length > 0) {
+          // Loop through each course and append it to the courses container
+          response.forEach(function (course) {
+            var courseImage = course.image || "assets/images/default-avatar.jpeg";
+            $(".courses-container").append(
+              '<div class="course">' +
+                '<img src="' + courseImage + '" alt="' + course.title + '">' +
+                '<h3>' + course.title + '</h3>' +
+                '<p>' + course.description + '</p>' +
+                '<p>' + course.data + '</p>' +
+                '<p class="course-price">' + course.price + '</p>' +
+                '<a href="buy-course.html?course=' + course.id + '" class="btn buy-btn">Book Course Now</a>' +
+                '</div>'
+            );
+          });
+        } else {
+          // Display a message if no courses are found
+          $(".courses-container").html("<p>No courses found.</p>");
+        }
+      },
+      error: function (xhr, status, error) {
+        // Display error message if request fails
+        console.error("Error fetching course data:", error);
+        $(".courses-container").html("<p>Error fetching course data.</p>");
+      }
+    });
+  }
+
+
     $(document).ready(function() {
     $('#addCourseForm').submit(function(event) {
         event.preventDefault(); // Prevent the default form submission
@@ -94,6 +131,8 @@
                 alert('Error adding course'); // Notify the user of an error
             }
         });
+
+
     });
 
     // Existing modal script

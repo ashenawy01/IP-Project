@@ -258,20 +258,19 @@
   </tr>
 </table>
 
+
 <!-- The Modal for Adding Reservation -->
 <div id="myModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal()">&times;</span>
     <h2>Add Reservation</h2>
-    <form id="addProjectForm">
-      <label for="courseTitle">Course Title:</label><br>
-      <input type="text" id="courseTitle" name="courseTitle" required><br>
+    <form id="addReservationForm">
+      <label for="courseId">Course ID:</label><br>
+      <input type="text" id="courseId" name="courseId" required><br>
+      <label for="studentId">Student ID:</label><br>
+      <input type="text" id="studentId" name="studentId" required><br>
       <label for="startDate">Start Date:</label><br>
       <input type="date" id="startDate" name="startDate" required><br>
-      <label for="studentName">Student Name:</label><br>
-      <input type="text" id="studentName" name="studentName" required><br>
-      <label for="phoneNumber">Phone Number:</label><br>
-      <input type="text" id="phoneNumber" name="phoneNumber" required><br>
       <label for="status">Status:</label><br>
       <select name="status" id="status">
         <option value="Pending">Pending</option>
@@ -279,10 +278,11 @@
         <option value="Declined">Declined</option>
         <option value="Canceled">Canceled</option>
       </select><br><br>
-      <input type="button" onclick="saveProject()" class="btn" value="Save">
+      <input type="button" onclick="saveReservation()" class="btn" value="Save">
     </form>
   </div>
 </div>
+
 
 
 
@@ -353,6 +353,42 @@ $(document).ready(function() {
             }
         });
     });
+
+
+// Function to save reservation
+function saveReservation() {
+  // Get form data
+  var courseId = document.getElementById("courseId").value;
+  var studentId = document.getElementById("studentId").value;
+  var startDate = document.getElementById("startDate").value;
+  var status = document.getElementById("status").value;
+
+  // Create data object
+  var data = {
+    courseId: courseId,
+    studentId: studentId,
+    date: startDate,
+    status: status
+  };
+
+  // Send POST request
+  $.ajax({
+    url: "http://localhost/reservationapp/backend/reservation-controller.php",
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(data),
+    success: function(response) {
+      // Handle success
+      alert("Reservation saved successfully.");
+      closeModal(); // Close modal after successful submission
+    },
+    error: function(xhr, status, error) {
+      // Handle error
+      alert("Error saving reservation: " + error);
+    }
+  });
+}
+
 
     function updateProject(btn) {
         var row = btn.parentNode.parentNode;

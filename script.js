@@ -1,4 +1,4 @@
-$(document).ready(function () {
+function fetchCourses() {
   // AJAX request to fetch course data from the controller
   $.ajax({
     url: "http://localhost/reservationapp/backend/course-controller.php?action=getAll",
@@ -32,7 +32,9 @@ $(document).ready(function () {
       $(".courses-container").html("<p>Error fetching course data.</p>");
     }
   });
-});
+}
+
+$(document).ready(fetchCourses);
 
 
 
@@ -491,3 +493,5 @@ $(document).ready(function() {
 //   };
 //   xhr.send(formData); // Send form data
 // });
+
+

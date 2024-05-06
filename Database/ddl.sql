@@ -90,5 +90,10 @@ CREATE TABLE feedback (
 );
 
 -- Add any other related tables as needed
+CREATE TABLE enrollments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    phone VARCHAR(255) NOT NULL
+);
 
 

@@ -360,51 +360,53 @@ window.addEventListener('click', function(event) {
   }
 });
 
-function saveEnrollment() {
- 
-  
-  alert('Information saved! (placeholder)');
-  document.getElementById('enrollmentModal').style.display = 'none';
-}
+// Function to handle the click event on each star for rating
 document.querySelectorAll('.star').forEach(star => {
-  star.addEventListener('click', (e) => {
-    removeRating(); 
-    e.target.classList.add('rated'); 
+  star.addEventListener('click', function(e) {
+    // Remove previous ratings
+    document.querySelectorAll('.star').forEach(star => {
+      star.classList.remove('rated');
+    });
+    // Add 'rated' class to the clicked star and all previous stars
+    e.target.classList.add('rated');
     let previousSibling = e.target.previousElementSibling;
     while (previousSibling) {
-      
       previousSibling.classList.add('rated');
       previousSibling = previousSibling.previousElementSibling;
     }
+    // Update the displayed rating based on the clicked star
+    updateDisplayedRating(e.target.dataset.value);
   });
 });
 
-function removeRating() {
-  document.querySelectorAll('.star').forEach(star => {
-    star.classList.remove('rated');
-  });
+function updateDisplayedRating(rating) {
+  // This could be enhanced to update server-side ratings via a PHP script using AJAX if desired
+  document.getElementById('averageRating').textContent = rating; // Placeholder to demonstrate functionality
+  document.getElementById('ratingCount').textContent = parseInt(document.getElementById('ratingCount').textContent) + 1;
 }
+
 $(document).ready(function() {
-  
-  $('.star').on('click', function() {
-    var rating = $(this).data('value');
-    updateRating(rating);
-  });
-
-  
-  loadRatings();
-
- 
+  loadRatings(); // Call to load ratings, assuming they are stored and managed, e.g., in localStorage or by server
 });
 
-function updateRating(rating) {
- 
-  var ratings = JSON.parse(localStorage.getItem('ratings')) || [];
-  ratings.push(rating);
-  localStorage.setItem('ratings', JSON.stringify(ratings));
-  
-  
-  calculateAndDisplayRating(ratings);
+function loadRatings() {
+  // Placeholder function to simulate loading ratings
+  let ratings = JSON.parse(localStorage.getItem('ratings')) || [];
+  if (ratings.length > 0) {
+    let total = ratings.reduce((acc, cur) => acc + cur, 0);
+    let averageRating = (total / ratings.length).toFixed(1);
+    let ratingCount = ratings.length;
+    $('#averageRating').text(averageRating);
+    $('#ratingCount').text(ratingCount);
+  }
+}
+
+// This could be part of an initialization to handle persistent ratings, which would typically involve server interaction or localStorage
+function initializeRatings() {
+  let savedRatings = JSON.parse(localStorage.getItem('ratings')) || [];
+  if (savedRatings.length > 0) {
+    calculateAndDisplayRating(savedRatings);
+  }
 }
 
 function calculateAndDisplayRating(ratings) {
@@ -416,52 +418,6 @@ function calculateAndDisplayRating(ratings) {
   $('#ratingCount').text(ratingCount);
 }
 
-function loadRatings() {
-  var ratings = JSON.parse(localStorage.getItem('ratings')) || [];
-  if (ratings.length > 0) {
-    calculateAndDisplayRating(ratings);
-  }
-}
-
-function saveEnrollment() {
- 
-}
-$(document).ready(function() {
-
-  $('#enrollButton').click(function() {
-    $('#enrollmentModal').show();
-  });
-
-  $('.close').click(function() {
-    $('#enrollmentModal').hide();
-  });
-
-  
-  $('#enrollmentForm').on('submit', function(e) {
-    
-    e.preventDefault();
-
-    
-    var name = $('#name').val().trim();
-    var phone = $('#phone').val().trim();
-
-    
-    if(name === "") {
-      alert('Please enter your name.');
-      return; 
-    }
-    
-    if(phone === "") {
-      alert('Please enter your phone number.');
-      return;
-    }
-
-
-    console.log('Data saved:', { name: name, phone: phone });
-    alert('Information saved successfully!');
-    $('#enrollmentModal').hide();
-  });
-});
 
 
 // Modal popup functionality

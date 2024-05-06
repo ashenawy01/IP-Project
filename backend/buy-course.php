@@ -2,7 +2,6 @@
 require_once "db_connection.php";
 
 class Enrollment {
-    // Method to save a new enrollment
     public static function addEnrollment($name, $phone) {
         global $conn;
 
@@ -19,7 +18,6 @@ class Enrollment {
         $stmt->close();
     }
 
-    // Method to remove an enrollment
     public static function removeEnrollment($id) {
         global $conn;
 
@@ -37,7 +35,6 @@ class Enrollment {
     }
 }
 
-// Handling form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $phone = $_POST['phone'];

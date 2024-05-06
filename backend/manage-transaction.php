@@ -2,7 +2,7 @@
 require_once 'db_connection.php';
 
 class transaction {
-    $sql = "SELECT * FROM users WHERE type = 'admin'";
+    $sql = "SELECT * FROM user WHERE type = 'admin'";
     $result = $conn->query($sql); 
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {

@@ -20,22 +20,23 @@ class Reservation {
     }
 
     // Method to save a new reservation to the database
-    public function save() {
-        global $conn; // Use the existing database connection
+// Method to save a new reservation to the database
+public function save() {
+    global $conn; // Use the existing database connection
 
-        // Insert reservation into the database
-        $sql = "INSERT INTO reservations (course_id, student_id, date, note, status) VALUES (?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("iisss", $this->course_id, $this->student_id, $this->date, $this->note, $this->status);
+    // Insert reservation into the database
+    $sql = "INSERT INTO reservations (course_id, student_id, date, note, status) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("iisss", $this->course_id, $this->student_id, $this->date, $this->note, $this->status);
 
-        if ($stmt->execute() === TRUE) {
-            return "New reservation created successfully";
-        } else {
-            throw new Exception("Error: " . $stmt->error);
-        }
-
-        $stmt->close();
+    if ($stmt->execute() === TRUE) {
+        $stmt->close(); // Close the statement
+        return "New reservation created successfully";
+    } else {
+        throw new Exception("Error: " . $stmt->error);
     }
+}
+
 
     // Method to retrieve all reservations from the database
     public static function findAll() {

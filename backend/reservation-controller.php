@@ -2,12 +2,10 @@
 // Include the Reservation class
 require_once "Reservation.php";
 
-// Set headers to allow cross-origin requests
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST, GET");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+// Set the appropriate CORS headers
+header("Access-Control-Allow-Origin: *"); // Allow requests from any origin
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE"); // Allow the specified methods
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept"); // Allow the specified headers
 
 // Check the request method
 $method = $_SERVER["REQUEST_METHOD"];
@@ -15,7 +13,7 @@ $method = $_SERVER["REQUEST_METHOD"];
 switch ($method) {
     case "GET":
         // Handle GET request
-        $action = $_GET["action"];
+        $action = isset($_GET["action"]) ? $_GET["action"] : null;
         if ($action === "getAll") {
             // Retrieve all reservations
             $reservations = Reservation::findAll();
@@ -48,10 +46,12 @@ switch ($method) {
         if (
             !empty($data->course_id) &&
             !empty($data->student_id) &&
-            !empty($data->date)
+            !empty($data->date) &&
+            !empty($data->status) &&
+            !empty($data->note)
         ) {
             // Create a new reservation object
-            $reservation = new Reservation($data->course_id, $data->student_id, $data->date);
+            $reservation = new Reservation($data->course_id, $data->student_id, $data->date, $data->status, $data->note);
 
             try {
                 // Save the reservation
